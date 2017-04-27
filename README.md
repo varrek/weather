@@ -1,6 +1,6 @@
 # Weather
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.1.
+This project is test project for Levi9 frontend "school"
+It was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.1.
 
 ## Development server
 
