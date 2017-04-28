@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {WeatherService} from '../weather.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
     selector: 'app-weather',
@@ -7,10 +9,12 @@ import {WeatherService} from '../weather.service';
     styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
-    place: string;
+    city: string;
+    selectedCity: string;
 
     results: any[] = [];
-    error_text: string = '';
+    forecastResults: any;
+    error_text = '';
     CITIES: any [] = [
         'London',
         'Amsterdam',
@@ -28,25 +32,45 @@ export class WeatherComponent implements OnInit {
         this.loadWeather();
     }
 
-    loadWeather(){
-        for (let city of this.CITIES) {
-            console.log(this.getWeatherInPlace(city));
+    loadWeather() {
+        for (const city of this.CITIES) {
+            this.getWeatherInCity(city);
         }
     }
 
-    getWeatherInPlace(place: string) {
+    getWeatherInCity(place: string) {
         if (place) {
-            this.place = place;
-            this.weatherService.getWeatherByPlaceAndLanguage(place).subscribe(
+            this.city = place;
+            this.weatherService.getWeatherByPlace(place).subscribe(
                 weather => {
-                    this.results = weather;
+                    this.results.push(weather);
                 },
                 error => {
                     this.results = [];
-                    this.error_text = "Sorry!";
+                    this.error_text = 'Sorry!';
                     console.error(error);
                 }
-            )
+            );
         }
+    }
+
+    getForecastInCity() {
+        if (this.selectedCity) {
+            this.weatherService.getForecastByPlace(this.selectedCity).subscribe(
+                weather => {
+                    this.forecastResults = weather;
+                },
+                error => {
+                    this.error_text = 'Sorry!';
+                    console.error(error);
+                }
+            );
+        }
+    }
+
+
+    onSelect(city: string): void {
+        this.selectedCity = city;
+        this.getForecastInCity();
     }
 }

@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-xs-12">
+      <span class="btn-group"><button class="btn btn-default" (click)="onSelect(city.name)" *ngFor="let city of results">{{city.name}} ({{city.main.temp}} °C, {{city.wind.deg}} deg)</button></span>
+  </div>
+</div>
+<div class="row" *ngIf="selectedCity">
+    <div class="col-xs-12">
+        <div class="">
+            <h3>
+                {{selectedCity}}
+            </h3>
+        </div>
+        <div class="col-xs-4"  *ngFor="let day of forecastResults">
+            <div weather-panel="forecast" show-entry="forecast.list[1]" class="ng-isolate-scope ng-scope"><div class="weather panel panel-primary">
+                <div class="panel-heading ng-binding">{{day.dt*1000 | date:'fullDate'}}</div>
+                <div class="panel-body">
+                    <div>
+                        <p class="lead">
+                            <img ng-src="http://openweathermap.org/img/w/01d.png" src="http://openweathermap.org/img/w/01d.png">
+                            {{day.main.temp}}°C {{day.weather[0].description}}
+                        </p>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <small>
+                        Pressure: {{day.main.pressure}} hPa&nbsp;~&nbsp;
+                        Humidity: {{day.main.humidity}}%
+                    </small>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
