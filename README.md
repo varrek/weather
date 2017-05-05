@@ -1,5 +1,5 @@
 # Weather
-This project is test project for Levi9 frontend "school"
+This project is test project for angularjs basics
 It was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.1.
 
 ## Development server
